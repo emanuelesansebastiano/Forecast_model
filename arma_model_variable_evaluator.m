@@ -163,7 +163,7 @@ for y = 1 : n_set_data
     % best model
     clear model size_model IDdata
     IDdata = iddata(temp_sequence_values,[],1);
-    model = ar(IDdata, na_nc_complexity);
+    model = armax(IDdata, na_nc_complexity);
     %A(q) y(t) = [B(q)/F(q)] u(t-nk) + [C(q)/D(q)] e(t)
     [A,B,C,D,E,F] = polydata(model);
     size_model_A = size(A);
