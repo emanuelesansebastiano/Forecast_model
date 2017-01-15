@@ -12,7 +12,7 @@ Dataset used: 'tourism_data.csv'
 
 Real forecast solution: 'forecast_values.csv'
 
-Data_mat solution: 'data_forecast.mat'
+Experiment solution (.mat): 'data_forecast.mat'
 
 
 Function to run: 'main.m'
