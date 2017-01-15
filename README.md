@@ -15,12 +15,12 @@ Real forecast solution: 'forecast_values.csv'
 Experiment solution (.mat): 'data_forecast.mat'
 
 
-Project purpose:
+PROJECT PURPOSE:
 This bunch of functions try to forecast tourism values knowing the previous ones. It is basically an Autoregressive system. 
 The set is composed by 518 time series having different size (min:7 max:43) and we want a serie of 4 forecast values for every time serie.
 Forecast evaluation: Mean absolute scaled error (MASE).
 
-Process description:
+PROCESS DESCRIPTION:
 The function takes the dataset and performs a dataset division 70% of every single time serie will be used to generate a specific complexity model. Then, the function will evaluate the forecast based on the remaining 30% of the time series, testing every possible (and reasonable) order of complexity. After that, the function will have the best complexity model for every kind of model used (AR, ARMA, etc..). So, it will compare all the model against each other establishing which is the best one using that to generate the best forecast set. 
 
 
