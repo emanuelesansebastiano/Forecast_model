@@ -73,41 +73,79 @@ clear y1 y2 NaN_counter temp_input_data
 fprintf('\nAverage forecast starts...\n'); init_time = clock();
 f_avarage = forecast_average(input_data, n_avail_numb, n_des_forecast_val);
 time_f_average = timeevaluator_sec(init_time);
+clear data_eval; data_eval = model_eval(input_data, n_avail_numb, correct_solution, f_avarage);
+i = 1; f_model(i).time = time_f_average; f_model(i).mod_name = 'forecast_average'; 
+f_model(i).forecast = f_avarage; f_model(i).MASE = data_eval.MASE; f_model(i).meanMASE = mean(data_eval.MASE);
 
 fprintf('\nWeighted average forecast starts...\n'); init_time = clock();
 f_avarage_weighted = forecast_weighted_average(input_data, n_avail_numb, n_des_forecast_val);
 time_f_average_weighted = timeevaluator_sec(init_time);
+clear data_eval; data_eval = model_eval(input_data, n_avail_numb, correct_solution, f_avarage_weighted);
+i = i+1; f_model(i).time = time_f_average_weighted; f_model(i).mod_name = 'forecast_weighted_average';
+f_model(i).forecast = f_avarage_weighted; f_model(i).MASE = data_eval.MASE; f_model(i).meanMASE = mean(data_eval.MASE);
 
 fprintf('\nPolyfit variable forecast starts...\n'); init_time = clock();
 poly_var_solution = polyfit_model_variable_evaluator(input_data, n_avail_numb, n_train_numb, n_des_forecast_val);
 time_poly_var_solution = timeevaluator_sec(init_time);
+clear data_eval; data_eval = model_eval(input_data, n_avail_numb, correct_solution, poly_var_solution.forecast_matrix);
+i = i+1; f_model(i).time = time_poly_var_solution; f_model(i).mod_name = 'polyfit_model_variable_evaluator'; 
+f_model(i).forecast = poly_var_solution; f_model(i).MASE = data_eval.MASE; f_model(i).meanMASE = mean(data_eval.MASE);
 
 fprintf('\nPolyfit variable strictly positive forecast starts...\n'); init_time = clock();
 poly_var_pos_solution = polyfit_model_variable_positive_evaluator(input_data, n_avail_numb, n_train_numb, n_des_forecast_val);
 time_poly_var_pos_solution = timeevaluator_sec(init_time);
+clear data_eval; data_eval = model_eval(input_data, n_avail_numb, correct_solution, poly_var_pos_solution.forecast_matrix);
+i = i+1; f_model(i).time = time_poly_var_pos_solution; f_model(i).mod_name = 'polyfit_model_variable_positive_evaluator'; 
+f_model(i).forecast = poly_var_pos_solution; f_model(i).MASE = data_eval.MASE; f_model(i).meanMASE = mean(data_eval.MASE);
 
 fprintf('\nAR percentage forecast starts...\n'); init_time = clock();
 ar_perc_solution = ar_model_perc_evaluator(input_data, n_avail_numb, n_train_numb, n_des_forecast_val);
 time_ar_perc_solution = timeevaluator_sec(init_time);
+clear data_eval; data_eval = model_eval(input_data, n_avail_numb, correct_solution, ar_perc_solution.forecast_matrix);
+i = i+1; f_model(i).time = time_ar_perc_solution; f_model(i).mod_name = 'ar_model_perc_evaluator'; 
+f_model(i).forecast = ar_perc_solution; f_model(i).MASE = data_eval.MASE; f_model(i).meanMASE = mean(data_eval.MASE);
 
 fprintf('\nAR common forecast starts...\n'); init_time = clock();
 ar_comm_solution = ar_model_best_common_evaluator(input_data, n_avail_numb, n_train_numb, n_des_forecast_val);
 time_ar_comm_solution = timeevaluator_sec(init_time);
+clear data_eval; data_eval = model_eval(input_data, n_avail_numb, correct_solution, ar_comm_solution.forecast_matrix);
+i = i+1; f_model(i).time = time_ar_comm_solution; f_model(i).mod_name = 'ar_model_best_common_evaluator'; 
+f_model(i).forecast = ar_comm_solution; f_model(i).MASE = data_eval.MASE; f_model(i).meanMASE = mean(data_eval.MASE);
 
 fprintf('\nAR variable forecast starts...\n'); init_time = clock();
 ar_var_solution = ar_model_variable_evaluator(input_data, n_avail_numb, n_train_numb, n_des_forecast_val);
 time_ar_var_solution = timeevaluator_sec(init_time);
+clear data_eval; data_eval = model_eval(input_data, n_avail_numb, correct_solution, ar_var_solution.forecast_matrix);
+i = i+1; f_model(i).time = time_ar_var_solution; f_model(i).mod_name = 'ar_model_variable_evaluator'; 
+f_model(i).forecast = ar_var_solution; f_model(i).MASE = data_eval.MASE; f_model(i).meanMASE = mean(data_eval.MASE);
 
 fprintf('\nARMA variable forecast starts...\n'); init_time = clock();
 arma_var_solution = arma_model_variable_evaluator(input_data, n_avail_numb, n_train_numb, n_des_forecast_val);
 time_arma_var_solution = timeevaluator_sec(init_time);
+clear data_eval; data_eval = model_eval(input_data, n_avail_numb, correct_solution, arma_var_solution.forecast_matrix);
+i = i+1; f_model(i).time = time_arma_var_solution; f_model(i).mod_name = 'arma_model_variable_evaluator'; 
+f_model(i).forecast = arma_var_solution; f_model(i).MASE = data_eval.MASE; f_model(i).meanMASE = mean(data_eval.MASE);
 
 save('data_forecast');
 
-%% Solution evaluation
-data_eval = model_eval(input_data, n_avail_numb, correct_solution, f_avarage_weighted);
-mean_MASE_err = mean(data_eval.MASE)
-mean_RMASE_err = mean(data_eval.RMASE)
-mean_MAPSE_err = mean(data_eval.MAPSE)
+%% Best Model Evaluation
+n_model = size(f_model,2);
 
+swap = 1;
+while(swap == 1)
+    swap = 0;
+    for i = 1 : n_model-1
+        if f_model(i).meanMASE > f_model(i+1).meanMASE
+            temp = f_model(i+1);
+            f_model(i+1) = f_model(i);
+            f_model(i) = temp;
+            clear temp
+            swap = 1;
+        end
+    end
+end
 
+clear i swap init_time data_eval
+save('data_forecast');
+
+fprintf('\nFINISHED!\nThe best model is: %s\n', f_model(1).mod_name);
