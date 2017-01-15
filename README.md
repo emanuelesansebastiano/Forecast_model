@@ -2,11 +2,14 @@
 Attempt to forecast very pour time series having different size 
 
 Author: Emanuele Sansebastiano
+
 Github page: https://github.com/emanuelesansebastiano
+
 Date: January, 2017
 
 Dataset used: 'tourism_data.csv'
 Real forecast solution: 'forecast_values.csv'
+Data_mat solution: 'data_forecast.mat'
 
 Function to run: 'main.m'
 
