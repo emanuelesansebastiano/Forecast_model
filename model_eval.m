@@ -96,7 +96,7 @@ for y1 = 1 : set_numb
     %Root mean absolute scaled error: RMASE = RMSE/Q_err
     RMASE_err(y1) = RMSE_err(y1)/Q_err(y1);
     
-    %Mean absolute percentage scaled error: MAPSE = MASE/Q_perc_err
+    %Mean absolute percentage scaled error: MAPSE = MAPE/Q_perc_err
     MAPSE_err(y1) = MAPE_err(y1)/Q_perc_err(y1);
 end
 
