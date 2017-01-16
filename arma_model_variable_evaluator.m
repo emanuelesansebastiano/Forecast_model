@@ -184,7 +184,9 @@ for y = 1 : n_set_data
     end
     
 end
-forecast_matrix = temp_sol_matrix;
+
+%Adjust negative values to zero
+forecast_matrix = sol_adjuster(temp_sol_matrix);
 clear temp_sol_matrix
 
 % solution structure definition

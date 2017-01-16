@@ -54,5 +54,8 @@ for y1 = 1 : size_data(2)
     end
 end
 
+%Adjust negative values to zero
+solution_set = sol_adjuster(solution_set);
+
 end
 

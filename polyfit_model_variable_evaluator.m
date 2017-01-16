@@ -19,7 +19,7 @@ function [ solution ] = polyfit_model_variable_evaluator(matrix_data, matrix_dat
 % Algorithm:
 %   - Use the 'polyfit' function for every data set (variable grade)
 %   - This compare all the possible grades automatically.
-%   - The lower polynomial grade among the ones having the lowest MAPE is choosen to compute the forecast
+%   - The lower polynomial grade among the ones having the lowest MASE is choosen to compute the forecast
 %
 % Output:
 %   - Best grade for every dataset
@@ -172,7 +172,9 @@ for y = 1 : n_set_data
         temp_sol_matrix(j,y) = sol(j);
     end 
 end
-forecast_matrix = temp_sol_matrix;
+
+%Adjust negative values to zero
+forecast_matrix = sol_adjuster(temp_sol_matrix);
 clear temp_sol_matrix
 
 % solution structure definition
