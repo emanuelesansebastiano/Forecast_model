@@ -156,6 +156,24 @@ while(swap == 1)
 end
 
 clear i swap init_time data_eval
-save('data_forecast');
 
-fprintf('\nFINISHED!\nThe best model is: %s\n', f_model(1).mod_name);
+tot_time = 0;
+for i = 1 : n_model
+    tot_time = tot_time + f_model(i).time;
+end
+
+clear i ans
+clear ar_comm_solution ar_comm_solution ar_perc_solution ar_var_solution arma_var_solution
+clear f_avarage f_avarage_weighted poly_var_pos_solution poly_var_solution
+clear time_ar_comm_solution time_ar_perc_solution time_ar_var_solution
+clear time_arma_var_solution time_f_average time_f_average_weighted
+clear time_poly_var_pos_solution time_poly_var_solution
+
+best_forecast = f_model(1).forecast;
+save('data_forecast'); 
+
+fprintf('\n\n\nFINISHED!\nTime used:\t\t\t %d seconds.\n', tot_time);
+fprintf('The best model is:\t %s\n', f_model(1).mod_name);
+
+
+
