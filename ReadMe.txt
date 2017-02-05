@@ -1,5 +1,5 @@
 # Forecast_model
-Tourism forecast based on very pour time series (time serie size is not constant). 
+Tourism forecast based on very poor time series (time serie size is not constant). 
 
 Author: Emanuele Sansebastiano
 
